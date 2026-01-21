@@ -1,9 +1,3 @@
-'''
-毕业实习课程——基于深度学习的端到端无人驾驶系统开发
-专业班级：   姓名：  学号：
-完成工作：搭建卷积神经网络模型
-'''
-
 #1、导入第三方库
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D,Dense,Dropout,Flatten,Lambda,MaxPool2D
