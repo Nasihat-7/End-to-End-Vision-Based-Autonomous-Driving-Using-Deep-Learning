@@ -1,19 +1,18 @@
-#1、导入第三方库
-#（1）互联网通信类
+
 import socketio
 import eventlet.wsgi
 from flask import Flask
-#（2）图像处理类
+
 import base64, cv2
 from io import BytesIO
 from PIL import Image
 import numpy as np
-#（3）模型相关类
+
 from tensorflow.keras.models import load_model
 from preprocessing import image_normalized
 model = load_model('Yexianglun_mountain_model2.h5')
 
-#2、初始化变量
+
 max_speed = 20
 steering_angle = -0.02
 throttle = 0.3
@@ -24,15 +23,15 @@ def send_control(steering_angle, throttle):
         'throttle':throttle.__str__()
     })
 
-#3、创建网络连接
+
 sio = socketio.Server()
 app = Flask(__name__)
 app = socketio.WSGIApp(sio, app)
 
-#4、传递参数，控制汽车行驶
+
 @sio.on('connect')
 def on_connect(sid, environ):
-    print('与模拟器连接成功')
+    print('connected')
 
 @sio.on('telemetry')
 def on_telemetry(sid, data):
@@ -59,7 +58,7 @@ def on_telemetry(sid, data):
 
 @sio.on('disconnect')
 def on_disconnect(sid):
-    print('与模拟器断开连接')
+    print('disconnected')
 
 #5、自动运行
 eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
