@@ -1,4 +1,3 @@
-#1、导入第三方库
 import cv2
 import numpy as np
 import pandas as pd
@@ -10,14 +9,14 @@ from preprocessing import image_height, image_width, image_channels
 from preprocessing import image_preprocessing, image_normalized
 from build_model import build_model1, build_model2, build_model3
 
-#2、初始化变量
+
 data_path = 'data_mountain/'
 test_ration = 0.1
 batch_size = 100
 batch_num = 200
 epoch = 300
 
-#3、导入数据
+
 def load_data(data_path):
     data_csv = pd.read_csv(data_path+'driving_log.csv', names=['center', 'left', 'right', 'steering', '_', '__', '___'])
     X = data_csv[['center', 'left', 'right']].values
@@ -25,7 +24,7 @@ def load_data(data_path):
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=test_ration, random_state=0)
     return X_train, X_test, Y_train, Y_test
 
-#4、批量生成数据（喂料机）
+
 def batch_generator(data_path, batch_size, X_data, Y_data, train_flag):
     image_container = np.empty([batch_size, image_height, image_width, image_channels])
     steer_container = np.empty(batch_size)
@@ -45,7 +44,7 @@ def batch_generator(data_path, batch_size, X_data, Y_data, train_flag):
                 break
         yield image_container, steer_container
 
-#5、训练模型
+
 X_train, X_test, Y_train, Y_test = load_data(data_path)
 model = build_model2()
 checkpoint = ModelCheckpoint(
@@ -81,5 +80,5 @@ model.fit(
     callbacks=[checkpoint,stopping,tensor_board]
 )
 
-#6、保存模型
+
 model.save('Yexianglun_mountain_model2.h5')
