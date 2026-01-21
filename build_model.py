@@ -1,9 +1,7 @@
-#1、导入第三方库
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D,Dense,Dropout,Flatten,Lambda,MaxPool2D
 from preprocessing import image_width,image_height,image_channels
 
-#2、搭建卷积神经网络模型
 Input_size = (image_width,image_height,image_channels)
 
 def build_model1():
@@ -62,7 +60,7 @@ def build_model3():
     model.summary()
     return model
 
-#3、设置主函数
+
 if __name__ == '__main__':
     build_model1()
     build_model2()
