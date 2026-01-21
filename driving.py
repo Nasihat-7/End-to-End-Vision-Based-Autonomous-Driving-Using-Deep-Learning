@@ -60,5 +60,5 @@ def on_telemetry(sid, data):
 def on_disconnect(sid):
     print('disconnected')
 
-#5、自动运行
+
 eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
