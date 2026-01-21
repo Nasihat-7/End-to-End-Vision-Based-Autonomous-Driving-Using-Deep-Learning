@@ -1,13 +1,12 @@
-#1、导入第三方库
 import cv2
 import numpy as np
 
-#2、初始化变量
+
 image_height, image_width, image_channels = 66, 200, 3
 center,left,right = './test/center.jpg','./test/left.jpg','./test/right.jpg'
 steering_angle = 0.0
 
-#3、选择图像
+
 def image_choose(center,left,right,steering_angle):
     choice=np.random.choice(3)
     if choice==0:
@@ -25,7 +24,7 @@ def image_choose(center,left,right,steering_angle):
     # cv2.waitKey(0)
     return image,steering_angle
 
-#4、翻转图像
+
 def image_flip(image, steering_angle):
     if np.random.rand()<0.5:
         image = cv2.flip(image, 1)
@@ -34,7 +33,7 @@ def image_flip(image, steering_angle):
     # cv2.waitKey(0)
     return image, steering_angle
 
-#5、平移图像
+
 def image_translate(image, steering_angle):
     range_X, range_Y = 100, 10
     tran_X = int(range_X*(np.random.rand()-0.5))
@@ -46,7 +45,7 @@ def image_translate(image, steering_angle):
     # cv2.waitKey(0)
     return image, steering_angle
 
-#6、归一化图像
+
 def image_normalized(image):
     image = image[60: -25,:,:]
     image = cv2.resize(image,(image_width,image_height,),cv2.INTER_AREA)
@@ -55,14 +54,14 @@ def image_normalized(image):
     # cv2.waitKey(0)
     return image
 
-#7、图像预处理
+
 def image_preprocessing(center, left, right, steering_angle):
     image, steering_angle=image_choose(center,left,right, steering_angle)
     image, steering_angle =image_flip(image,steering_angle)
     image, steering_angle = image_translate(image, steering_angle)
     return image,steering_angle
 
-#8、设置主函数
+
 if __name__ =='__main__':
     image,steering_angle = image_preprocessing(center, left, right, steering_angle)
     image = image_normalized(image)
